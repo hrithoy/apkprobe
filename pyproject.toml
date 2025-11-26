@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=42", "setuptools_scm>=8", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+authors = [{name = "wadingporque"}]
+dynamic = ["classifiers"]
+name = "apkprobe"
+version = "0.4.0"
+requires-python = ">=3.10"
+readme = "README.md"
+license = { file = "LICENSE" }
+description = "APK decompiler and secrets scanner. Find leaked API keys, endpoints, credentials in Android apps. Reverse engineering tool for security researchers."
+keywords = [
+    "apk-decompiler", "android-security", "apk-leaks", "secret-scanner", "apk-reverse",
+    "apk2url", "api-key-finder", "android-pentesting", "bug-bounty", "mobile-security",
+    "credential-scanner", "endpoint-extractor", "jadx", "apktool", "reverse-engineering"
+]
+dependencies = [
+    "enjarify-adapter",
+    "pyyaml",
+]
+
+[project.urls]
+Homepage = "https://github.com/wadingporque/apkprobe"
+Repository = "https://github.com/wadingporque/apkprobe"
+
+[project.scripts]
+apkprobe = "apkprobe.main:main"
+
+[project.optional-dependencies]
+mypyc = ["mypy[mypyc]", "mypy_extensions"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"*" = ["LICENSE"]
+"apkprobe.secret_locators" = ["*.json", "*.yaml", "*.yml", "*.toml"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools_scm]
+version_file = "src/apkprobe/_version.py"
+
+[tool.black]
+line-length = 120
+exclude = "src/apkprobe/main.py"
+force-exclude = "src/apkprobe/main.py"
